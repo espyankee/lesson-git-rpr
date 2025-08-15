@@ -1,0 +1,29 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: 
+  create VPC and igw
+
+Resources: 
+  myVPC: 
+    Type: AWS::EC2::VPC
+    Properties: 
+      CidrBlock: 192.168.0.0/16
+      EnableDnsSupport: true
+      EnableDnsHostnames: true
+      Tags: 
+        - Key: Name
+          Value: lesson-CFn-create-VPC
+
+  myIGW:
+    Type: AWS::EC2::InternetGateway
+    Properties:
+      Tags: 
+        - Key: Name
+          Value: lesson-CFn-create-igw
+
+  AttachGateway: 
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      VpcId: !Ref myVPC
+      InternetGatewayId: !Ref myIGW
+
+
